@@ -2,7 +2,51 @@
 
 a pandoc wrapper for node.js
 
-# License
+## Installation
+
+```
+npm install pdc
+```
+
+This package requires [pandoc](http://johnmacfarlane.net/pandoc/) to be
+installed and to be in PATH.
+
+## Usage
+
+```js
+var pandoc = require('pdc');
+
+pandoc('# Heading', 'markdown', 'html', function(err, result) {
+  if (err)
+    throw err;
+
+  console.log(result);
+});
+```
+
+This will print:
+
+```html
+<h1 id="heading">Heading</h1>
+```
+
+## API
+
+```js
+pandoc(src, srcType, destType, callback);
+```
+
+*   `src` is a string containing the entire source text, that shall be
+    converted.
+*   `srcType` is a string containing the type of the source text. (E.g.
+    `'markdown'`)
+*   `destType` is a string containing the type of the destination text. (E.g.
+    `'html'`)
+*   `callback` is a function that is called after parsing. It takes two
+    arguments `(err, result)`, where `err` is an error or `null` and `result` is
+    a string containing the converted text.
+
+## License
 
 Copyright © 2012 Paul Vorbach
 
