@@ -33,18 +33,31 @@ This will print:
 ## API
 
 ```js
-pandoc(src, srcType, destType, callback);
+pandoc(src, from, to[, options], callback);
 ```
 
 *   `src` is a string containing the entire source text, that shall be
     converted.
-*   `srcType` is a string containing the type of the source text. (E.g.
+*   `from` is a string containing the type of the source text. (E.g.
     `'markdown'`)
-*   `destType` is a string containing the type of the destination text. (E.g.
+*   `to` is a string containing the type of the destination text. (E.g.
     `'html'`)
+*   `options` [optional] is an array with additional command line flags (E.g.
+    `[ '-v' ]` for pandocs version).
 *   `callback` is a function that is called after parsing. It takes two
     arguments `(err, result)`, where `err` is an error or `null` and `result` is
     a string containing the converted text.
+
+## Bugs and Issues
+
+If you encounter any bugs or issues, feel free to open an issue at
+[github](https://github.com/pvorb/node-pdc/issues).
+
+## Credits
+
+I’d like to thank [John MacFarlane](http://johnmacfarlane.net/) for creating
+such a great tool, that adds so many possibilities to Markdown, and of course
+[John Gruber](http://daringfireball.net/) for creating Markdown itself.
 
 ## License
 
