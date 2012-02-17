@@ -2,8 +2,16 @@ var spawn = require('child_process').spawn;
 
 module.exports = pdc;
 
-function pdc(src, srcType, destType, cb) {
-  var args = [ '-f', srcType, '-t', destType ];
+// pdc(src,
+function pdc(src, from, to, opt, cb) {
+  if (typeof cb == 'undefined')
+    cb = opt;
+
+  var args = [ '-f', from, '-t', to ];
+
+  if (typeof opt == 'object')
+    args = args.concat(opt);
+
   var pandoc = spawn('pandoc', args);
 
   var result = '';
