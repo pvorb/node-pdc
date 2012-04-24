@@ -2,7 +2,7 @@ var spawn = require('child_process').spawn;
 
 module.exports = pdc;
 
-// pdc(src,
+// pdc(src, from, to[, opt], cb)
 function pdc(src, from, to, opt, cb) {
   if (typeof cb == 'undefined')
     cb = opt;
@@ -26,7 +26,7 @@ function pdc(src, from, to, opt, cb) {
 
   pandoc.on('exit', function (code) {
     if (code != 0)
-      return cb(new Error('pandoc exitet with code '+code+'.'));
+      return cb(new Error('pandoc exited with code '+code+'.'));
     if (error)
       return cb(new Error(error));
 

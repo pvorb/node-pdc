@@ -9,7 +9,7 @@ npm install pdc
 ```
 
 This package requires [pandoc](http://johnmacfarlane.net/pandoc/) to be
-installed and to be in PATH.
+installed and to be in `PATH`.
 
 ## Usage
 
@@ -56,7 +56,7 @@ If you encounter any bugs or issues, feel free to open an issue at
 ## Credits
 
 I’d like to thank [John MacFarlane](http://johnmacfarlane.net/) for creating
-such a great tool, that adds so many possibilities to Markdown, and of course
+such a great tool -- It adds so many possibilities to Markdown -- and of course
 [John Gruber](http://daringfireball.net/) for creating Markdown itself.
 
 ## License
