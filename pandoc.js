@@ -25,7 +25,7 @@ function pdc(src, from, to, opt, cb) {
   });
 
   pandoc.on('exit', function (code) {
-    if (code != 0)
+    if (code != 0 && !err)
       return cb(new Error('pandoc exited with code '+code+'.'));
     if (error)
       return cb(new Error(error));
