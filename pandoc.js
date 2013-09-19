@@ -25,10 +25,14 @@ function pdc(src, from, to, opt, cb) {
   });
 
   pandoc.on('exit', function (code) {
-    if (code != 0 && !err)
-      return cb(new Error('pandoc exited with code '+code+'.'));
+    var msg = '';
+    if (code !== 0)
+      msg += 'pandoc exited with code '+code+(error ? ': ' : '.');
     if (error)
-      return cb(new Error(error));
+      msg += error;
+
+    if (msg)
+      return cb(new Error(msg));
 
     cb(null, result);
   });
