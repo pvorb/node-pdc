@@ -1,7 +1,7 @@
 {
   "name": "pdc",
   "description": "a pandoc wrapper for node",
-  "author": "Paul Vorbach <paul@vorb.de> (http://vorb.de/)",
+  "author": "Paul Vorbach <paul@vorba.ch> (http://paul.vorba.ch/)",
   "tags": [
     "pandoc",
     "markdown"
@@ -9,19 +9,19 @@
   "version": "0.1.2",
   "repository": {
     "type": "git",
-    "url": "git://github.com/pvorb/node-pandoc.git"
+    "url": "git://github.com/pvorb/node-pdc.git"
   },
   "bugs": {
-    "url": "https://github.com/pvorb/node-pandoc/issues"
+    "url": "https://github.com/pvorb/node-pdc/issues"
   },
-  "main": "./pandoc.js",
+  "main": "./pdc.js",
   "engines": {
     "node": ">=0.6.0"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://vorb.de/license/mit.html"
+      "url": "http://vorba.ch/license/mit.html"
     }
   ],
   "dependencies": {},
