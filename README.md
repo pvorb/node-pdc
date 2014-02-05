@@ -67,6 +67,9 @@ pdc.path = 'pandoc';
 pdc.stream(from, to, [args,] [opts])
 ~~~
 
+This is an alternative way to run pandoc. If you need a way to manipulate the
+streams, that's the way to go.
+
   * `from` is a string containing the type of the source text (e.g.
     `'markdown'`).
   * `to` is a string containing the type of the destination text (e.g.
