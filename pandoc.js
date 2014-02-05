@@ -12,7 +12,7 @@ function pdc(src, from, to, opt, cb) {
   if (typeof opt == 'object')
     args = args.concat(opt);
 
-  var pandoc = spawn('pandoc', args);
+  var pandoc = spawn(pdc.path, args);
 
   var result = '';
   var error = '';
@@ -39,3 +39,6 @@ function pdc(src, from, to, opt, cb) {
 
   pandoc.stdin.end(src, 'utf8');
 }
+
+// Path to pandoc runner in your system
+pdc.path = 'pandoc';
