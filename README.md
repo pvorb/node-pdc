@@ -44,19 +44,17 @@ pdc(src, from, to, [args,] [opts,] callback);
 
   * `src` is a string containing the entire source text, that shall be
     converted.
-  * `from` is a string containing the type of the source text. (E.g.
-    `'markdown'`)
-  * `to` is a string containing the type of the destination text. (E.g.
-    `'html'`)
-  * `args` [optional] is an array with additional command line flags (E.g.
-    `[ '-v' ]` for pandocs version).
+  * `from` is a string containing the type of the source text (e.g.
+    `'markdown'`).
+  * `to` is a string containing the type of the destination text (e.g.
+    `'html'`).
+  * `args` [optional] is an array with additional command line flags (e.g.
+    `[ '-v' ]` for pandoc's version).
   * `opts` [optional] is an object with additional options for the process. See
     [the Node.js docs][spawn].
   * `callback` is a function that is called after parsing. It takes two
     arguments `(err, result)`, where `err` is an error or `null` and `result` is
     a string containing the converted text.
-
-[spawn]: http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
 
 ~~~ js
 pdc.path = 'pandoc';
@@ -64,6 +62,24 @@ pdc.path = 'pandoc';
 
   * `pdc.path` is a string containing the name or absolute path to the
     executable. Defaults to `'pandoc'`.
+
+~~~ js
+pdc.stream(from, to, [args,] [opts])
+~~~
+
+  * `from` is a string containing the type of the source text (e.g.
+    `'markdown'`).
+  * `to` is a string containing the type of the destination text (e.g.
+    `'html'`).
+  * `args` [optional] is an array with additional command line flags (e.g.
+    `[ '-v' ]` for pandoc's version).
+  * `opts` [optional] is an object with additional options for the process. See
+    [the Node.js docs][spawn].
+  * Returns a [ChildProcess], which allows you to use pandoc's `stdin`, `stdout`
+    and `stderr`.
+
+[spawn]: http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
+[ChildProcess]: http://nodejs.org/api/child_process.html#child_process_class_childprocess
 
 ## Bugs and Issues
 
