@@ -2,32 +2,53 @@ var spawn = require('child_process').spawn;
 
 module.exports = pdc;
 
-// pdc(src, from, to[, opt], cb)
-function pdc(src, from, to, opt, cb) {
-  if (typeof cb == 'undefined')
-    cb = opt;
+// pdc(src, from, to, [args,] [opts,] cb)
+function pdc(src, from, to, args, opts, cb) {
+  var defaultArgs = [ '-f', from, '-t', to ];
 
-  var args = [ '-f', from, '-t', to ];
+  // sanitize arguments
+  // no args, no opts
+  if (arguments.length == 4) {
+    cb = args;
+    opts = null;
+    args = defaultArgs;
+  } else {
+    // args, but no opts
+    if (arguments.length == 5) {
+      cb = opts;
+      opts = null;
+    }
 
-  if (typeof opt == 'object')
-    args = args.concat(opt);
+    // concatenate arguments
+    args = defaultArgs.concat(args);
+  }
 
-  var pandoc = spawn(pdc.path, args);
+  // start pandoc (with or without options)
+  var pandoc;
+  if (opts === null)
+    pandoc = spawn(pdc.path, args);
+  else
+    pandoc = spawn(pdc.path, args, opts);
+
 
   var result = '';
   var error = '';
 
+  // collect result data
   pandoc.stdout.on('data', function (data) {
     result += data;
   });
+
+  // collect error data
   pandoc.stderr.on('data', function (data) {
     error += data;
   });
 
+  // listen on exit
   pandoc.on('exit', function (code) {
     var msg = '';
     if (code !== 0)
-      msg += 'pandoc exited with code '+code+(error ? ': ' : '.');
+      msg += 'pandoc exited with code ' + code + (error ? ': ' : '.');
     if (error)
       msg += error;
 
@@ -37,8 +58,9 @@ function pdc(src, from, to, opt, cb) {
     cb(null, result);
   });
 
+  // finally, send source string
   pandoc.stdin.end(src, 'utf8');
 }
 
-// Path to pandoc runner in your system
+// name of or path to pandoc executable
 pdc.path = 'pandoc';
