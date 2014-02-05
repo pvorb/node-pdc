@@ -2,34 +2,41 @@ var spawn = require('child_process').spawn;
 
 module.exports = pdc;
 
-// pdc(src, from, to, [args,] [opts,] cb)
-function pdc(src, from, to, args, opts, cb) {
+// pdcStream(from, to, [args,] [opts])
+function pdcStream(from, to, args, opts) {
   var defaultArgs = [ '-f', from, '-t', to ];
 
   // sanitize arguments
   // no args, no opts
-  if (arguments.length == 4) {
-    cb = args;
-    opts = null;
+  if (arguments.length == 2) {
     args = defaultArgs;
   } else {
-    // args, but no opts
-    if (arguments.length == 5) {
-      cb = opts;
-      opts = null;
-    }
-
     // concatenate arguments
     args = defaultArgs.concat(args);
   }
 
   // start pandoc (with or without options)
   var pandoc;
-  if (opts === null)
+  if (typeof opts == 'undefined')
     pandoc = spawn(pdc.path, args);
   else
     pandoc = spawn(pdc.path, args, opts);
 
+  return pandoc;
+}
+
+// pdc(src, from, to, [args,] [opts,] cb)
+function pdc(src, from, to, args, opts, cb) {
+  var pandoc;
+  if (arguments.length == 4) {
+    cb = args;
+    pandoc = pdcStream(from, to);
+  } else if (arguments.length == 5) {
+    cb = opts;
+    pandoc = pdcStream(from, to, args);
+  } else {
+    pandoc = pdcStream(from, to, args, opts);
+  }
 
   var result = '';
   var error = '';
@@ -61,6 +68,9 @@ function pdc(src, from, to, args, opts, cb) {
   // finally, send source string
   pandoc.stdin.end(src, 'utf8');
 }
+
+// export stream version
+pdc.stream = pdcStream;
 
 // name of or path to pandoc executable
 pdc.path = 'pandoc';
