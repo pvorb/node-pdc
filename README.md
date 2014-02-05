@@ -48,6 +48,17 @@ pandoc(src, from, to[, options], callback);
     arguments `(err, result)`, where `err` is an error or `null` and `result` is
     a string containing the converted text.
 
+By default, it uses pandoc command installed to your system.
+To use custom runner change `pandoc.path`.
+
+```js
+var join = require('path').join;
+var pandoc = require('pdc');
+
+pandoc.path = join(process.env.HOME, '.cabal/bin/pandoc');
+pandoc('# Heading', 'markdown', 'html');
+```
+
 ## Bugs and Issues
 
 If you encounter any bugs or issues, feel free to open an issue at
