@@ -9,14 +9,20 @@ npm install pdc
 ```
 
 This package requires [pandoc](http://johnmacfarlane.net/pandoc/) to be
-installed and to be in `PATH`.
+installed. By default, the wrapper assumes pandoc to be in `PATH`. You can set
+your own, customized path to the executable by assigning an absolute path to
+`pdc.path`.
 
 ## Usage
 
 ```js
-var pandoc = require('pdc');
+var pdc = require('pdc');
 
-pandoc('# Heading', 'markdown', 'html', function(err, result) {
+// optional, if pandoc is not in PATH
+var path = require('path');
+pdc.path = path.resolve(process.env.HOME, '.cabal/bin/pandoc');
+
+pdc('# Heading', 'markdown', 'html', function(err, result) {
   if (err)
     throw err;
 
@@ -33,31 +39,27 @@ This will print:
 ## API
 
 ```js
-pandoc(src, from, to[, options], callback);
+pdc(src, from, to[, options], callback);
 ```
 
-*   `src` is a string containing the entire source text, that shall be
+  * `src` is a string containing the entire source text, that shall be
     converted.
-*   `from` is a string containing the type of the source text. (E.g.
+  * `from` is a string containing the type of the source text. (E.g.
     `'markdown'`)
-*   `to` is a string containing the type of the destination text. (E.g.
+  * `to` is a string containing the type of the destination text. (E.g.
     `'html'`)
-*   `options` [optional] is an array with additional command line flags (E.g.
+  * `options` [optional] is an array with additional command line flags (E.g.
     `[ '-v' ]` for pandocs version).
-*   `callback` is a function that is called after parsing. It takes two
+  * `callback` is a function that is called after parsing. It takes two
     arguments `(err, result)`, where `err` is an error or `null` and `result` is
     a string containing the converted text.
 
-By default, it uses pandoc command installed to your system.
-To use custom runner change `pandoc.path`.
-
 ```js
-var join = require('path').join;
-var pandoc = require('pdc');
-
-pandoc.path = join(process.env.HOME, '.cabal/bin/pandoc');
-pandoc('# Heading', 'markdown', 'html');
+pdc.path = 'pandoc';
 ```
+
+  * `pdc.path` is a string containing the name or absolute path to the
+    executable. Defaults to `'pandoc'`.
 
 ## Bugs and Issues
 
@@ -72,7 +74,7 @@ such a great tool -- It adds so many possibilities to Markdown -- and of course
 
 ## License
 
-Copyright © 2012 Paul Vorbach
+Copyright © 2012-2014 Paul Vorbach
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the “Software”), to deal in
