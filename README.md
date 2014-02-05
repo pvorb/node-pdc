@@ -4,9 +4,9 @@ a pandoc wrapper for node.js
 
 ## Installation
 
-```
+~~~
 npm install pdc
-```
+~~~
 
 This package requires [pandoc](http://johnmacfarlane.net/pandoc/) to be
 installed. By default, the wrapper assumes pandoc to be in `PATH`. You can set
@@ -15,7 +15,7 @@ your own, customized path to the executable by assigning an absolute path to
 
 ## Usage
 
-```js
+~~~ js
 var pdc = require('pdc');
 
 // optional, if pandoc is not in PATH
@@ -28,19 +28,19 @@ pdc('# Heading', 'markdown', 'html', function(err, result) {
 
   console.log(result);
 });
-```
+~~~
 
 This will print:
 
-```html
+~~~ html
 <h1 id="heading">Heading</h1>
-```
+~~~
 
 ## API
 
-```js
-pdc(src, from, to[, options], callback);
-```
+~~~ js
+pdc(src, from, to, [args,] [opts,] callback);
+~~~
 
   * `src` is a string containing the entire source text, that shall be
     converted.
@@ -48,15 +48,19 @@ pdc(src, from, to[, options], callback);
     `'markdown'`)
   * `to` is a string containing the type of the destination text. (E.g.
     `'html'`)
-  * `options` [optional] is an array with additional command line flags (E.g.
+  * `args` [optional] is an array with additional command line flags (E.g.
     `[ '-v' ]` for pandocs version).
+  * `opts` [optional] is an object with additional options for the process. See
+    [the Node.js docs][spawn].
   * `callback` is a function that is called after parsing. It takes two
     arguments `(err, result)`, where `err` is an error or `null` and `result` is
     a string containing the converted text.
 
-```js
+[spawn]: http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
+
+~~~ js
 pdc.path = 'pandoc';
-```
+~~~
 
   * `pdc.path` is a string containing the name or absolute path to the
     executable. Defaults to `'pandoc'`.
