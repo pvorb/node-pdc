@@ -52,7 +52,7 @@ function pdc(src, from, to, args, opts, cb) {
   });
 
   // listen on exit
-  pandoc.on('exit', function (code) {
+  pandoc.on('close', function (code) {
     var msg = '';
     if (code !== 0)
       msg += 'pandoc exited with code ' + code + (error ? ': ' : '.');
