@@ -41,6 +41,11 @@ function pdc(src, from, to, args, opts, cb) {
   var result = '';
   var error = '';
 
+  // listen on error
+  pandoc.on('error', function (err) {
+    return cb(err);
+  });
+
   // collect result data
   pandoc.stdout.on('data', function (data) {
     result += data;
