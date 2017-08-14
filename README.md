@@ -54,7 +54,7 @@ pdc(src, from, to, [args,] [opts,] callback);
     [the Node.js docs][spawn].
   * `callback` is a function that is called after parsing. It takes two
     arguments `(err, result)`, where `err` is an error or `null` and `result` is
-    a string containing the converted text.
+    a string containing the converted text(For docx, `result` is a binary buffer).
 
 ~~~ js
 pdc.path = 'pandoc';
