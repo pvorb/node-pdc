@@ -1,3 +1,4 @@
+var Buffer = require('buffer').Buffer;
 var spawn = require('child_process').spawn;
 
 module.exports = pdc;
@@ -38,7 +39,9 @@ function pdc(src, from, to, args, opts, cb) {
     pandoc = pdcStream(from, to, args, opts);
   }
 
-  var result = '';
+  var result = new Buffer(0);
+  var chunks = [];
+  var size = 0;
   var error = '';
 
   // listen on error
@@ -48,7 +51,8 @@ function pdc(src, from, to, args, opts, cb) {
 
   // collect result data
   pandoc.stdout.on('data', function (data) {
-    result += data;
+    chunks.push(data);
+    size += data.length;
   });
 
   // collect error data
@@ -66,7 +70,9 @@ function pdc(src, from, to, args, opts, cb) {
 
     if (msg)
       return cb(new Error(msg));
-
+    var result = Buffer.concat(chunks, size);
+    if (to.toLowerCase() !== 'docx')
+      result = result.toString();
     cb(null, result);
   });
 
